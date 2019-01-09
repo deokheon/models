@@ -96,6 +96,7 @@ def convert_kitti_to_tfrecords(data_dir, output_path, classes_to_use,
   val_count = 0
 
   annotation_dir = os.path.join(data_dir,
+                                'data_object_label_2',
                                 'training',
                                 'label_2')
 
@@ -104,10 +105,16 @@ def convert_kitti_to_tfrecords(data_dir, output_path, classes_to_use,
                            'training',
                            'image_2')
 
-  train_writer = tf.python_io.TFRecordWriter('%s_train.tfrecord'%
-                                             output_path)
-  val_writer = tf.python_io.TFRecordWriter('%s_val.tfrecord'%
-                                           output_path)
+  #train_writer = tf.python_io.TFRecordWriter('%s_train.tfrecord'%
+  #                                           output_path)
+  #val_writer = tf.python_io.TFRecordWriter('%s_val.tfrecord'%
+  #                                         output_path)
+
+  train_file = os.path.join(output_path, 'train.tfrecord')
+  train_writer = tf.python_io.TFRecordWriter(train_file)
+
+  val_file = os.path.join(output_path, 'val.tfrecord')
+  val_writer = tf.python_io.TFRecordWriter(val_file)
 
   images = sorted(tf.gfile.ListDirectory(image_dir))
   for img_name in images:
